@@ -1,9 +1,30 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PetsTypeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SocialMediaController;
+use App\Http\Controllers\VeterinarianController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+Route::resource('category', CategoryController::class)
+    ->middleware('auth');
+
+Route::resource('service', ServiceController::class)
+    ->middleware('auth');
+
+Route::resource('socialMedia', SocialMediaController::class)
+    ->middleware('auth');
+
+Route::resource('petsType', PetsTypeController::class)
+    ->middleware('auth');
+
+Route::resource('veterinarian', VeterinarianController::class)
+    ->middleware('auth');
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
