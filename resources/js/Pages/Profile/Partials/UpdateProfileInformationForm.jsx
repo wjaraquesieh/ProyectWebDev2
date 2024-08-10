@@ -5,12 +5,13 @@ import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
-export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }) {
+export default function UpdateProfileInformation({ mustVerifyEmail, status, roles, className = '' }) {
     const user = usePage().props.auth.user;
-
+console.log(user);
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
         name: user.name,
         email: user.email,
+        roles_id: user.roles_id,
     });
 
     const submit = (e) => {
@@ -83,6 +84,24 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         )}
                     </div>
                 )}
+
+                <div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 font-semibold mb-2">Role:</label>
+                        <select
+                            value={data.roles_id}
+                            onChange={() => setData('roles_id', e.target.value)}
+                            className="w-full border border-gray-300 p-2 rounded"
+                        >
+                            <option value="">...</option>
+                            {roles.map((role) => (
+                                <option key={role.id} value={role.id}>
+                                    {role.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
 
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>

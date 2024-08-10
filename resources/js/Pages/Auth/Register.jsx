@@ -5,12 +5,13 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
-export default function Register() {
+export default function Register({ roles }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
+        roles_id: 0,
     });
 
     const submit = (e) => {
@@ -92,6 +93,22 @@ export default function Register() {
                     />
 
                     <InputError message={errors.password_confirmation} className="mt-2" />
+                </div>
+                
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-semibold mb-2">Role:</label>
+                    <select
+                        value={data.roles_id}
+                        onChange={(e) => setData('roles_id', e.target.value)}
+                        className="w-full border border-gray-300 p-2 rounded"
+                    >
+                        <option value="">...</option>
+                        {roles.map((role) => (
+                            <option key={role.id} value={role.id}>
+                                {role.name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
